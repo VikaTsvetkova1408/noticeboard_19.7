@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+{% load account socialaccount %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock title %}</title>
+  <link rel="stylesheet" href="https://unpkg.com/chota">
+  <link rel="stylesheet" href="{% static 'custom.css' %}">
+  {% block head_scripts %}{% endblock head_scripts %}
+</head>
+<body>
+
+
+
+</body>
+
+<main>
+  {% block content %}{% endblock content %}
+</main>
+
+{% block footer_scripts %}{% endblock footer_scripts %}
+</html>

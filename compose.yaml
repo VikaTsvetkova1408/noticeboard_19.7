@@ -1,0 +1,9 @@
+services:
+  memcached:
+    image: memcached:latest
+    restart: always
+    container_name: sf_noticeboard_memcached
+    ports:
+      - "127.0.0.1:11212:11212"
+    environment:
+      - MEMCACHED_CACHE_SIZE=128
