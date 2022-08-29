@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Add Notice{% endblock title %}
+
+{% block content %}
+<div class="space-md"></div>
+<form action="/add" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button class="button primary">Submit</button>
+</form>
+
+{% endblock content %}

@@ -4,5 +4,19 @@
 {% block title %}NoticeBoard Title{% endblock title %}
 
 {% block content %}
-<p>Notices</p>
+
+<section id="notices">
+  <div class="space-md"></div>
+  {% for notice in notice_list %}
+    <div class="card margins-md">
+      {{ notice.content.html | safe }}
+      <footer class="is-right">
+        <a href="#" class="button primary">Open</a>
+      </footer>
+    </div>
+  {% endfor %}
+</section>
+
+
+
 {% endblock content %}

@@ -2,6 +2,34 @@
 Custom Noticeboard CSS
 */
 
-*, body {
-  max-width: 1280px;
+body > .container {
+  max-width: 800px;
+}
+
+div.space-sm {
+  height: 1em;
+}
+
+div.space-md {
+  height: 3em;
+}
+
+div.space-lg {
+  height: 5em;
+}
+
+.margins-no {
+  margin: 0 0;
+}
+
+.margins-sm {
+  margin: .75rem .75rem;
+}
+
+.margins-md {
+  margin: 1.5rem 1.5rem;
+}
+
+.margins-lg {
+  margin: 3rem 3rem;
 }

@@ -41,21 +41,25 @@ class Notice(models.Model):
     author = models.ForeignKey(Person, on_delete=models.CASCADE)
     content = QuillField()
     timestamp = models.DateTimeField('Timestamp ', auto_now_add=True)
-    category = models.ManyToManyField(Category, through='NoticeCategory')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    # category = models.ManyToManyField(Category, through='NoticeCategory')
 
     def __str__(self):
-        return self.content
+        return self.content.plain
 
     def __repr__(self):
         return f'<Notice #{self.id}>'
 
+    def get_absolute_url(self):
+        return reverse('core:notice_detail', args=[str(self.id)])
 
-class NoticeCategory(models.Model):
-    """
-    m2m link between Notice and Category
-    """
-    notice = models.ForeignKey(Notice, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+# class NoticeCategory(models.Model):
+#     """
+#     m2m link between Notice and Category
+#     """
+#     notice = models.ForeignKey(Notice, on_delete=models.CASCADE)
+#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 class Rejoinder(models.Model):

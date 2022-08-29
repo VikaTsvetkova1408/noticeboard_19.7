@@ -8,17 +8,34 @@
   <title>{% block title %}{% endblock title %}</title>
   <link rel="stylesheet" href="https://unpkg.com/chota">
   <link rel="stylesheet" href="{% static 'custom.css' %}">
+  {% include 'django_quill/media.html' %}
   {% block head_scripts %}{% endblock head_scripts %}
 </head>
-<body>
+<body id="top">
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="#" class="brand">NoticeBoard</a>
+  </div>
+  <div class="nav-center">
+    <div class="tabs">
+      <a href="/?category=" class="{% if not category_current %}active{% endif %}">All</a>
+      {% for category in category_list %}
+        <a href="/?category={{ category.id }}" class="{% if category.id == category_current|add:'0' %}active{% endif %}">{{ category.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="/add" class="button primary">Add</a>
+  </div>
+</nav>
 
 
+  <main class="container">
+    {% block content %}{% endblock content %}
+  </main>
+
+  {% block footer_scripts %}{% endblock footer_scripts %}
 
 </body>
-
-<main>
-  {% block content %}{% endblock content %}
-</main>
-
-{% block footer_scripts %}{% endblock footer_scripts %}
 </html>
