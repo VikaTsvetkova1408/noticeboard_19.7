@@ -33,3 +33,7 @@ div.space-lg {
 .margins-lg {
   margin: 3rem 3rem;
 }
+
+.django-quill-widget-container {
+  height: 33vh;
+}

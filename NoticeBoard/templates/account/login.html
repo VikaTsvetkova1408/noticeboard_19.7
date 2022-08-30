@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title%}Log In{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="space-md"></div>
+
+<section id="login">
+  <h4>Log In</h4>
+
+  <form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+
+    <input type="email" required autocomplete="off" id="id_login" name="login" placeholder="Login">
+    <input type="password" required autocomplete="off" id="id_password" name="password" placeholder="Password">
+    <input type="checkbox" name="remember" id="remember">
+    <label for="remember">Remember me</label>
+    <div class="space-sm"></div>
+    <p>
+      <a class="link" href="{% url 'account_reset_password' %}">Recover Password</a>
+      |
+      <a href="/accounts/signup" class="link">Sign Up</a>
+    </p>
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+
+    <button class="button outline primary" type="submit">Log In</button>
+  </form>
+
+</section>
+
+{% endblock %}

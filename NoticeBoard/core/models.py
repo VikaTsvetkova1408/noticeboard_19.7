@@ -8,8 +8,9 @@ from django.core.cache import cache
 class Person(models.Model):
     """
     Person who posts Notice on the noticeboard
+    In case we want to extend user with additional fields in the future
 
-    o2o linked to User
+    For now o2o linked to User
     """
     user: User = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -49,6 +50,10 @@ class Notice(models.Model):
 
     def __repr__(self):
         return f'<Notice #{self.id}>'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'notice#{self.pk}')
 
     def get_absolute_url(self):
         return reverse('core:notice_detail', args=[str(self.id)])

@@ -9,6 +9,7 @@ django-allauth = "*"
 django-quill-editor = "*"
 django-filter = "*"
 pymemcache = "*"
+django-apscheduler = "*"
 
 [dev-packages]
 

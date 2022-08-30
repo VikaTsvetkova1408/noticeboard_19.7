@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Notice #{{ notice.id }}{% endblock title %}
+
+{% block content %}
+
+<div class="space-lg"></div>
+<section id="notice-{{notice.id}}">
+  <div class="card">
+    {{notice.content.html | safe}}
+    <div class="is-right">
+      <small>
+        {{notice.author}}
+      </small>
+    </div>
+  </div>
+</section>
+
+{% if rejoinders %}
+<div class="space-md"></div>
+<section id="notice-{{notice.id}}-rejoinders">
+  <h4>Rejoinders:</h4>
+  {% for rj in rejoinders %}
+    <div class="card margins-sm">
+      {{ rj.content }}
+      <div class="is-right">
+        <small>{{ rj.author }}</small>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+<div class="space-md"></div>
+<section id="notice-{{notice.id}}-new-rejoinder">
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="content" id="id_rejoinder_content" cols="24" rows="4" placeholder="...">
+      {{ rejoinder_form.content.value | default:'' }}
+    </textarea>
+    <button class="button outline">Submit</button>
+  </form>
+
+</section>
+
+
+{% endblock content %}

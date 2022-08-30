@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title%}Sign Up{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="space-md"></div>
+
+<section id="signup">
+  <h4>Sign Up</h4>
+
+  <form method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+
+    <input type="email" required autocomplete="off" id="id_email" name="email" placeholder="email">
+    <input type="text" required autocomplete="off" id="id_username" name="username" placeholder="username">
+    <input type="password" required autocomplete="off" id="id_password1" name="password1" placeholder="password">
+    <input type="password" required autocomplete="off" id="id_password2" name="password2" placeholder="confirm password">
+
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+
+    <div class="space-sm"></div>
+    <button class="button outline primary" type="submit">Sign Up</button>
+  </form>
+
+</section>
+
+{% endblock %}

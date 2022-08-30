@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock title %}</title>
-  <link rel="stylesheet" href="https://unpkg.com/chota">
+  <link rel="stylesheet" href="{% static 'chota.min.css' %}">
   <link rel="stylesheet" href="{% static 'custom.css' %}">
   {% include 'django_quill/media.html' %}
   {% block head_scripts %}{% endblock head_scripts %}
@@ -15,9 +15,19 @@
 
 <nav class="nav">
   <div class="nav-left">
-    <a href="#" class="brand">NoticeBoard</a>
+    <a href="/" class="brand">NoticeBoard</a>
   </div>
-  <div class="nav-center">
+  <div class="nav-right">
+    {% if user.is_authenticated %}
+    <a href="{% url 'account_logout' %}" class="button primary">Log Out</a>
+    {% else %}
+    <a href="{% url 'account_login' %}" class="button primary">Log In</a>
+    {% endif %}
+  </div>
+</nav>
+
+<nav class="nav">
+  <div class="nav-left">
     <div class="tabs">
       <a href="/?category=" class="{% if not category_current %}active{% endif %}">All</a>
       {% for category in category_list %}
@@ -26,7 +36,7 @@
     </div>
   </div>
   <div class="nav-right">
-    <a href="/add" class="button primary">Add</a>
+    <a href="/add" class="button secondary">Post notice</a>
   </div>
 </nav>
 
@@ -34,6 +44,14 @@
   <main class="container">
     {% block content %}{% endblock content %}
   </main>
+
+{% if messages %}
+  <section id="messages">
+      {% for message in messages %}
+      <p>{{message}}</p>
+      {% endfor %}
+  </section>
+{% endif %}
 
   {% block footer_scripts %}{% endblock footer_scripts %}
 

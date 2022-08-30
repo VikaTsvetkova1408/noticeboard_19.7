@@ -160,14 +160,10 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-LOGIN_REDIRECT_URL = 'pages:pages_index'
-LOGOUT_REDIRECT_URL = 'pages:pages_index'
+LOGIN_REDIRECT_URL = 'core:notice_index'
+LOGOUT_REDIRECT_URL = 'core:notice_index'
 
-ACCOUNT_FORMS = {'signup': 'pages.forms.BasicSignupForm'}
-
-# Sites Framework
-
-SITE_ID = 1
+ACCOUNT_FORMS = {'signup': 'core.forms.BasicSignupForm'}
 
 # Cache
 
@@ -175,7 +171,27 @@ CACHES = {
     'default': {
         'TIMEOUT': 60,
         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': '127.0.0.1:11212',
+        'LOCATION': '127.0.0.1:11212',  # Custom port(!)
     }
 }
+
+# Email
+
+EMAIL_HOST_USER = 'noreply@localhost'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# APScheduler
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+SCHEDULER_CONFIG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+SCHEDULER_AUTOSTART = True
 

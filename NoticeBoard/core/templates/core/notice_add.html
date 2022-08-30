@@ -5,10 +5,12 @@
 
 {% block content %}
 <div class="space-md"></div>
-<form action="/add" method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button class="button primary">Submit</button>
-</form>
-
+<div>
+  <form action="/add" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <div class="space-md"></div>
+    <button class="button primary">Submit</button>
+  </form>
+</div>
 {% endblock content %}
