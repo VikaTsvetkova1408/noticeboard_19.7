@@ -10,9 +10,17 @@
   {% for notice in notice_list %}
     <div class="card margins-md">
       {{ notice.content.html | safe }}
-      <footer class="is-right">
-        <a href="{% url 'core:notice_detail' notice.id %}?category={{ notice.category.id }}" class="button primary">Open</a>
-      </footer>
+      <div class="row">
+        <div class="col">
+          {{ notice.author }}
+        </div>
+        <div class="col">
+          <div class="is-right">
+            <a href="{% url 'core:notice_detail' notice.id %}?category={{ notice.category.id }}" class="button primary">View</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   {% endfor %}
 </section>

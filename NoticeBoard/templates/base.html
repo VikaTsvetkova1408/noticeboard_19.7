@@ -18,7 +18,7 @@
 
     function xhr_logout() {
       const req = new Request(
-      '{% url 'account_logout' %}',
+      "{% url 'account_logout' %}",
       {
         method: 'POST',
         headers: {'X-CSRFToken': csrftoken},

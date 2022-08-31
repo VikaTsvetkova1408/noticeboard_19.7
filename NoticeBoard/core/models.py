@@ -43,7 +43,7 @@ class Notice(models.Model):
     content = QuillField()
     timestamp = models.DateTimeField('Timestamp ', auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    # category = models.ManyToManyField(Category, through='NoticeCategory')
+    closed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.content.plain
@@ -77,6 +77,7 @@ class Rejoinder(models.Model):
     author = models.ForeignKey(Person, on_delete=models.CASCADE)
     notice = models.ForeignKey(Notice, on_delete=models.CASCADE)
     content = models.TextField()
+    accepted = models.BooleanField(default=False)
     timestamp = models.DateTimeField('Timestamp ', auto_now_add=True)
 
     def __str__(self):

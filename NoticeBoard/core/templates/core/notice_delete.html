@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Delete Notice{% endblock title %}
+
+{% block content %}
+<div class="space-md"></div>
+<section id="notice-delete">
+  <h4>Confirm Delete Notice#{{ notice.id }}</h4>
+
+  <p>
+  <small>
+    {{ notice.content.plain | truncatewords:32}}
+  </small>
+  </p>
+
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <div class="space-md"></div>
+    <button class="button error">Delete</button>
+  </form>
+</section>
+{% endblock content %}

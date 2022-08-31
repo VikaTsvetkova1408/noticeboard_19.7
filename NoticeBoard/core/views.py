@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, CreateView, TemplateView, DeleteView
+from django.views.generic import DetailView, ListView, CreateView, TemplateView, DeleteView, UpdateView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.core.cache import cache
+from django.http.response import HttpResponseNotAllowed
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from .models import Person, Notice, Category, Rejoinder
 from .filters import NoticeCategoryFilter
@@ -110,9 +111,18 @@ class RejoinderDelete(LoginRequiredMixin, DeleteView):
         obj: Rejoinder = super().get_object(**kwargs)
         person = Person.objects.filter(user=self.request.user).first()
         notice: Notice = obj.notice
+        self.notice_id = notice.id
         if obj.author != person or notice.author != person:
             raise PermissionDenied
         return obj
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('core:notice_detail', args=(self.notice_id,))
+
+
+class RejoinderAccept(LoginRequiredMixin, UpdateView):
+    model = Rejoinder
+
 
 
 class PersonProfile(LoginRequiredMixin, TemplateView):

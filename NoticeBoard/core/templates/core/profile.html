@@ -5,11 +5,6 @@
 
 {% block title %}My profile{% endblock title %}
 
-{% block head_scripts %}
-{{ block.super }}
-<!-- profile scripts placeholder -->
-{% endblock head_scripts %}
-
 {% block content %}
 <section id="person-profile">
   <h4>My profile:</h4>
@@ -30,6 +25,9 @@
         <small>
           Rejoinders: {{ notice.rej_count }}
         </small>
+      </div>
+      <div class="is-right">
+        <small><a href="{% url 'core:notice_delete' notice.id %}">[x]</a></small>
       </div>
     </li>
     {% endfor %}

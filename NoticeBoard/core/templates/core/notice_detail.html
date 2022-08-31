@@ -9,11 +9,25 @@
 <section id="notice-{{notice.id}}">
   <div class="card">
     {{notice.content.html | safe}}
-    <div class="is-right">
-      <small>
-        {{notice.author}}
-      </small>
+
+    <div class="row">
+      <div class="col">
+        <div class="is-left">
+          <p>
+            {{notice.author}}
+          </p>
+        </div>
+      </div>
+      <div class="col">
+        {% if user.is_authenticated %}
+        <div class="is-right">
+          <small><a href="{% url 'core:notice_delete' notice.id %}">[x]</a></small>
+        </div>
+        {% endif %}
+      </div>
     </div>
+
+
   </div>
 </section>
 
@@ -24,9 +38,26 @@
   {% for rj in rejoinders %}
     <div class="card margins-sm">
       {{ rj.content }}
-      <div class="is-right">
-        <small>{{ rj.author }}</small>
+      <div class="row">
+        <div class="col">
+          <div class="is-left">
+            <small>{{ rj.author }}</small>
+          </div>
+        </div>
+        <div class="col">
+          {% if user.is_authenticated %}
+            {% if notice.author.user == request.user %}
+              <div class="is-right">
+                {% if notice.closed is False %}
+                <a href="#"><small>[accept]</small></a>&nbsp;
+                {% endif %}
+                <a href="{% url 'core:rejoinder_delete' rj.id %}"><small>[x]</small></a>
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
       </div>
+
     </div>
   {% endfor %}
 </section>
