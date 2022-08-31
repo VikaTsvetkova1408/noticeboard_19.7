@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load account socialaccount %}
+{% load i18n %}
+
+{% block title %}My profile{% endblock title %}
+
+{% block head_scripts %}
+{{ block.super }}
+<!-- profile scripts placeholder -->
+{% endblock head_scripts %}
+
+{% block content %}
+<section id="person-profile">
+  <h4>My profile:</h4>
+  <ul>
+    <li>User: {% user_display user %}</li>
+    <li>Email: {{ request.user.email }}</li>
+  </ul>
+</section>
+
+{% if person_notice_list %}
+<section id="person-notices">
+  <h4>My notices:</h4>
+  <ul>
+    {% for notice in person_notice_list %}
+    <li class="card">
+      <a href="{% url 'core:notice_detail' notice.id %}?category={{ notice.category.id }}">Notice #{{ notice.id }} - {{ notice.content.plain|truncatewords:10}}</a>
+      <div>
+        <small>
+          Rejoinders: {{ notice.rej_count }}
+        </small>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+
+</section>
+{% endif %}
+
+{% endblock content %}

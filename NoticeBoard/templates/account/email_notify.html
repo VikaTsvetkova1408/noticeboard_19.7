@@ -1,0 +1,23 @@
+{% extends 'email.html' %}
+
+{% load tags_extra %}
+
+{% block title %}New rejoinder on your notice!{% endblock title %}
+
+{% block content %}
+
+<section id="email_notify">
+  <h4>Here is new rejoinder on your notice:</h4>
+
+<p>
+    <a href="http://localhost:8000/{{ notice.get_absolute_url }}">Notice #{{ notice.id }}</a>
+</p>
+
+<p>
+    {{ notice.content.plain|truncatewords:48 }}
+</p>
+</section>
+
+
+
+{% endblock content %}

@@ -6,10 +6,36 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock title %}</title>
+  <script src="{% static 'js.cookie.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'chota.min.css' %}">
   <link rel="stylesheet" href="{% static 'custom.css' %}">
   {% include 'django_quill/media.html' %}
-  {% block head_scripts %}{% endblock head_scripts %}
+  {% block head_scripts %}
+  <!-- head scripts -->
+  {% if user.is_authenticated %}
+  <script language="JavaScript">
+    const csrftoken = Cookies.get('csrftoken');
+
+    function xhr_logout() {
+      const req = new Request(
+      '{% url 'account_logout' %}',
+      {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+        mode: 'same-origin',
+        redirect: 'follow'
+      });
+      fetch(req).then(function(response){
+        if (response.redirected){
+          window.location.href = response.url;
+        }
+      });
+    };
+
+  </script>
+  {% endif %}
+
+  {% endblock head_scripts %}
 </head>
 <body id="top">
 
@@ -19,7 +45,8 @@
   </div>
   <div class="nav-right">
     {% if user.is_authenticated %}
-    <a href="{% url 'account_logout' %}" class="button primary">Log Out</a>
+    <a href="{% url 'core:person_profile' %}" class="button primary">My profile</a>
+    <button type="button" onclick="xhr_logout();" class="button primary outline">Log Out</button>
     {% else %}
     <a href="{% url 'account_login' %}" class="button primary">Log In</a>
     {% endif %}
@@ -53,7 +80,10 @@
   </section>
 {% endif %}
 
-  {% block footer_scripts %}{% endblock footer_scripts %}
+{% block footer_scripts %}
+<!-- footer scripts -->
+
+{% endblock footer_scripts %}
 
 </body>
 </html>

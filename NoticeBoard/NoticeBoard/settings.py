@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'django_quill',
+    'django_apscheduler',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
